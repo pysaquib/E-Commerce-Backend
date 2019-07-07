@@ -17,8 +17,14 @@ module.exports = (stripe, _stripe) => {
 
     stripe.post('/charge', (req, res, next) => {
         const stripeToken = req.body.token;
-
         var stripe_ = _stripe(process.env.STRIPE_SECRET_KEY);
+        /*{
+            "order_id" : 5,
+            "description" : "T-Shirt, Color : Coral, Size : M",
+            "amount" : 65,
+            "currency" : "gbp",
+            "token" : "tok_1Edews1zercH8fk3xmqWc9"
+        }*/
         stripe_.charges.create({
             amount : req.body.amount,
             currency : req.body.currency,
