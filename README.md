@@ -11,6 +11,7 @@ Use **Node Package Manager** to install following modules
   1. Install Knex : `$ npm install knex --save`
   2. Install Mysql : `$ npm install mysql --save`
   3. Install ExpressJS : `$ npm install express --save`
+  4. Install JWT : `$ npm install jsonwebtoken`
   
   ##### Install ngrok : https://ngrok.com/download
   ##### Install Postman : https://www.getpostman.com/downloads/
