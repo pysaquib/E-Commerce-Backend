@@ -19,3 +19,6 @@ Use **Node Package Manager** to install following modules
  Create database by loading schema into your database
  **mysql -u *username* -p *DatabaseName* < schema.sql**
  Where username and DatabaseName will be your User name and Database name respectively.
+
+## Running
+Run the **server.js** file : `node server.js`
