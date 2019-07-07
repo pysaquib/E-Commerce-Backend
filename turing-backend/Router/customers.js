@@ -15,6 +15,12 @@ module.exports = (customers, customer, knex, jwt) => {
 
 // Sign up a customer and create an access token using JWT
     customers.post('/', (req, res) => {
+        //Enter user details
+        /*{
+            'name' : Name of the user,
+            'email' : E-mail of the user,
+            'password' : Password
+        }*/
         var user = {
             'name' : req.body.name,
             'email' : req.body.email,
@@ -38,32 +44,40 @@ module.exports = (customers, customer, knex, jwt) => {
     })
 
 //Login a customer with email and password by verifying access token created by JWT 
-    customers.post('/login', verifyToken, (req, res) => {
-        var login = {
-            'email' : req.body.email,
-            'password' : req.body.password
+customers.post('/login', verifyToken, (req, res, next) => {
+        var email = req.body.email;
+        var password = req.body.password;
+
+        var customer = {
+            'email' : email,
+            'password' : password
         }
-
-        // jwt.sign(
-        //     {login}, config.key, {expiresIn:"24h"}, (err, token) => {
-        //         res.send(token)
-        //     }
-        // )
-
-        jwt.verify(req.token, config.key, (err, authData) => {
-            if(err){
-                return res.sendStatus(403)
-            }
-            else{
-                newData = {}
-                knex.select('*').from('customer').where('email', req.body.email).andWhere('password', req.body.password)
-                .then((data) => {
-                    newData['customer'] = data[data.length-1]
-                    newData['accessToken'] = "Bearer "+req.token
-                    newData['expiresIn'] = '24h'
-                    return res.json(newData)
-                })
-            }
+        
+        var query = knex.select('*').from('customer')
+        .where('email', email)
+        .andWhere('password', password)
+        .then((customerDetail)=>{
+            // console.log(customerDetail[0]['email'])
+            jwt.verify(req.token, config.key, (err, data) => {
+                if(err){
+                    const refreshToken = jwt.sign({customer}, config.key, {expiresIn:'24h'}, (err,token)=>{
+                        req.token = token;
+                        return res.json({newToken:token});
+                    });
+                }
+                if(data['customer']['email'] === email && data['customer']['password'] === password){
+                    return res.json({
+                        customer : {
+                          schema : customerDetail[0]
+                        },
+                        accessToken :  "Bearer "+ req.token,
+                        expires_in : config.expires_in
+                      });
+                }
+                else{
+                    res.sendStatus(403)
+                }
+            })
         })
     })
 
