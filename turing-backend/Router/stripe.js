@@ -54,7 +54,8 @@ module.exports = (stripe, _stripe) => {
     stripe.post('/webhook', (req, res) => {
         var stripe_ = stripe(process.env.STRIPE_SECRET_KEY);
         stripe_.webhookEndpoints.create({
-            url: "http://0992ebca.ngrok.io/stripe/webhooks",
+//          url: `Your ngrok secured tunnel goes in here`
+            url: "http://0542xxxx.ngrok.io/stripe/webhooks",
             enabled_events: ["charge.failed", "charge.succeeded"]
         }, (err, webhookEndpoint) => {
             if(err){
