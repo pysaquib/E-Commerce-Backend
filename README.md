@@ -12,6 +12,7 @@ Use **Node Package Manager** to install following modules
   2. Install Mysql : `$ npm install mysql --save`
   3. Install ExpressJS : `$ npm install express --save`
   4. Install JWT : `$ npm install jsonwebtoken`
+  5. Install Stripe : `$ npm install stripe`
   
   ##### Install ngrok : https://ngrok.com/download
   ##### Install Postman : https://www.getpostman.com/downloads/
