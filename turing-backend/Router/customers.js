@@ -65,7 +65,7 @@ customers.post('/login', verifyToken, (req, res, next) => {
                         return res.json({newToken:token});
                     });
                 }
-                if(data['customer']['email'] === email && data['customer']['password'] === password){
+                if(data['user']['email'] === email && data['user']['password'] === password){
                     return res.json({
                         customer : {
                           schema : customerDetail[0]
