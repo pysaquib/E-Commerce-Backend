@@ -19,7 +19,7 @@
   "homepage": "https://github.com/zandoan/turing-backend#readme",
   "dependencies": {
     "express": "^4.17.0",
-    "knex": "^0.17.0-next3",
+    "knex": "^0.19.5",
     "mysql": "^2.17.1"
   }
 }
